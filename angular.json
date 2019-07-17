@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-typeahead-multiple": {
+    "ngx-chip": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-typeahead-multiple",
+            "outputPath": "dist/ngx-chip",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -58,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-typeahead-multiple:build"
+            "browserTarget": "ngx-chip:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-typeahead-multiple:build:production"
+              "browserTarget": "ngx-chip:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-typeahead-multiple:build"
+            "browserTarget": "ngx-chip:build"
           }
         },
         "test": {
@@ -106,15 +107,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ngx-typeahead-multiple:serve"
+            "devServerTarget": "ngx-chip:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ngx-typeahead-multiple:serve:production"
+              "devServerTarget": "ngx-chip:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "ngx-typeahead-multiple"
+  "defaultProject": "ngx-chip"
 }

@@ -1,0 +1,15 @@
+<div class="form-control custom-control">
+  <ul class="list-inline">
+    <li class="list-inline-item" *ngFor="let value of values">
+      {{ inputFormatter != null ? inputFormatter(value) : value}}
+    </li>
+    <li class="list-inline-item">
+      <input [ngbTypeahead]="searchFn" [editable]="editable" [(ngModel)]="newValue"
+             [resultFormatter]="inputFormatter" [inputFormatter]="inputFormatter"
+             (selectItem)="onSelectedItem($event)"
+             (keydown)="onKeyEnterDown($event)"
+             [focusFirst]="focusFirst"
+      >
+    </li>
+  </ul>
+</div>
