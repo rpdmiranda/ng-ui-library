@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {NgbTypeahead, NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import {merge, Observable, Subject} from 'rxjs';
@@ -6,14 +6,14 @@ import {merge, Observable, Subject} from 'rxjs';
 @Component({
   selector: 'app-chips',
   templateUrl: './chips.component.html',
-  styleUrls: ['./chips.component.css'],
+  styleUrls: ['./chips.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: ChipsComponent,
     multi: true
   }]
 })
-export class ChipsComponent implements ControlValueAccessor, OnInit {
+export class ChipsComponent implements ControlValueAccessor {
 
   @Input()
   inputFormatter: (_: any) => string;
@@ -38,16 +38,14 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
   newValue: any;
 
   private onChange: (_: any) => void;
+  private onTouched: () => void;
 
   /**
    * Subject used to inject empty values in the search stream
    */
-  private readonly subject = new Subject<string>();
+  private readonly subject$ = new Subject<string>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   registerOnChange(fn: any): void {
@@ -55,9 +53,11 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
   }
 
   registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
+    this.typeahead.setDisabledState(isDisabled);
   }
 
   writeValue(obj: any): void {
@@ -68,7 +68,7 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  searchFn = (text$: Observable<string>) => merge(this.subject, text$).pipe(this.search);
+  searchFn = (text$: Observable<string>) => merge(this.subject$, text$).pipe(this.search);
 
   /**
    * Adds a value to the model and notifies ngModel
@@ -86,7 +86,7 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
       if (this.onChange != null) {
         this.onChange(this.values);
       }
-      this.subject.next('');
+      this.subject$.next('');
     }
   }
 
@@ -101,7 +101,7 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
   }
 
   /**
-   * Adds an item if the user press the ENTER key
+   * Adds an item if the user press ENTER or TAB keys
    *
    * @param $event Keyboard event
    */
@@ -114,7 +114,7 @@ export class ChipsComponent implements ControlValueAccessor, OnInit {
     }
     if (this.newValue != null && this.newValue !== '') {
       this.addValue(this.newValue);
-      this.typeahead.dismissPopup();
+      $event.preventDefault();
     }
   }
 }
