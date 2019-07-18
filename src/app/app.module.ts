@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {ComponentsModule} from './components/components.module';
+import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
+import {ChipsModule} from '../../projects/chips/src/lib/chips.module';
 
 @NgModule({
   declarations: [
@@ -11,10 +11,11 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    ComponentsModule,
+    ChipsModule,
     FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

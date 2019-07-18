@@ -1,10 +1,10 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {NgbTypeahead, NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import {merge, Observable, Subject} from 'rxjs';
 
 @Component({
-  selector: 'app-chips',
+  selector: 'ngx-chips',
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.scss'],
   providers: [{
@@ -29,6 +29,11 @@ export class ChipsComponent implements ControlValueAccessor {
 
   @ViewChild(NgbTypeahead, {static: true})
   typeahead: NgbTypeahead;
+
+  @ViewChild('input', {static: true})
+  inputField: ElementRef;
+
+  @ViewChild(NgbTypeahead, {static: true})
 
   values: any[];
 
@@ -105,7 +110,19 @@ export class ChipsComponent implements ControlValueAccessor {
    *
    * @param $event Keyboard event
    */
-  onKeyEnterDown($event: KeyboardEvent) {
+  onKeyDown($event: KeyboardEvent) {
+    // Backspace pressed when the caret is at the first position of the input field
+    // deletes the last item of the array
+    const selectionStart: number = this.inputField.nativeElement.selectionStart;
+    const selectionEnd: number = this.inputField.nativeElement.selectionEnd;
+
+    if ('Backspace' === $event.key
+      && ((selectionStart === selectionEnd) && selectionStart === 0)
+      && this.values != null
+      && this.values.length > 0) {
+      this.removeItem(this.values.length - 1);
+      return;
+    }
     if (this.typeahead.isPopupOpen()) {
       return;
     }
@@ -115,6 +132,21 @@ export class ChipsComponent implements ControlValueAccessor {
     if (this.newValue != null && this.newValue !== '') {
       this.addValue(this.newValue);
       $event.preventDefault();
+    }
+  }
+
+  /**
+   * Remove the specified item
+   *
+   * @param index Index of the element to remove
+   */
+  removeItem(index: number) {
+    if (this.values == null || index < 0 || index >= this.values.length) {
+      return;
+    }
+    this.values = [...this.values.slice(0, index), ...this.values.slice(index + 1)];
+    if (this.onChange != null) {
+      this.onChange(this.values);
     }
   }
 }

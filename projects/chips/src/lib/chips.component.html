@@ -1,0 +1,16 @@
+<ul class="form-control d-inline-flex flex-wrap" style="width: 100%;">
+  <li *ngFor="let value of values; let idx = index">
+    {{ inputFormatter != null ? inputFormatter(value) : value}}
+    <a href="#" (click)="removeItem(idx)">
+      <fa-icon icon="times" title="Remove"></fa-icon>
+    </a>
+  </li>
+  <li class="flex-grow-1">
+    <input [ngbTypeahead]="searchFn" [editable]="editable" [(ngModel)]="newValue"
+           [resultFormatter]="inputFormatter" [inputFormatter]="inputFormatter"
+           (selectItem)="onSelectedItem($event)"
+           (keydown)="onKeyDown($event)"
+           [focusFirst]="focusFirst" type="text" #input>
+  </li>
+</ul>
+

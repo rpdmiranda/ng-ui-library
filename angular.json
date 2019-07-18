@@ -116,6 +116,41 @@
           }
         }
       }
+    },
+    "chips": {
+      "projectType": "library",
+      "root": "projects/chips",
+      "sourceRoot": "projects/chips/src",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/chips/tsconfig.lib.json",
+            "project": "projects/chips/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/chips/src/test.ts",
+            "tsConfig": "projects/chips/tsconfig.spec.json",
+            "karmaConfig": "projects/chips/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/chips/tsconfig.lib.json",
+              "projects/chips/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-chip",
