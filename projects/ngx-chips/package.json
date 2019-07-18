@@ -1,5 +1,5 @@
 {
-  "name": "ngx-chips",
+  "name": "@rpdmiranda/ngx-chips",
   "version": "0.0.1",
   "peerDependencies": {
     "@fortawesome/angular-fontawesome": "~0.4.0",

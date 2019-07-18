@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
-import {ChipsModule} from '../../projects/chips/src/lib/chips.module';
+import {ChipsModule} from '../../projects/ngx-chips/src/lib/chips.module';
 
 @NgModule({
   declarations: [
