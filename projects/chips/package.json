@@ -1,13 +1,11 @@
 {
   "name": "ngx-chips",
   "version": "0.0.1",
-  "dependencies": {
+  "peerDependencies": {
     "@fortawesome/angular-fontawesome": "~0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@ng-bootstrap/ng-bootstrap": "^5.1.0"
-  },
-  "peerDependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^5.1.0",
     "@angular/common": "^8.1.1",
     "@angular/core": "^8.1.1",
     "bootstrap": "^4.3.1"
