@@ -1,5 +1,5 @@
 {
-  "name": "chips",
+  "name": "ngx-chips",
   "version": "0.0.1",
   "dependencies": {
     "@fortawesome/angular-fontawesome": "~0.4.0",
@@ -9,6 +9,7 @@
   },
   "peerDependencies": {
     "@angular/common": "^8.1.1",
-    "@angular/core": "^8.1.1"
+    "@angular/core": "^8.1.1",
+    "bootstrap": "^4.3.1"
   }
 }

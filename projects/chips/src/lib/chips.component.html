@@ -1,4 +1,4 @@
-<ul class="form-control d-inline-flex flex-wrap" style="width: 100%;">
+<ul class="form-control d-flex flex-wrap" style="width: 100%;">
   <li *ngFor="let value of values; let idx = index">
     {{ inputFormatter != null ? inputFormatter(value) : value}}
     <a href="#" (click)="removeItem(idx)">
