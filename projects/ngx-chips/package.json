@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/rpdmiranda/ng-ui-library.git"
   },
-  "version": "8.0.0",
+  "version": "8.0.1",
   "peerDependencies": {
     "@fortawesome/angular-fontawesome": "~0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
