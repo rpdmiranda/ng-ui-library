@@ -1,12 +1,17 @@
 <div>
   <h1>Editable=false</h1>
-  <ngx-chips [(ngModel)]="countries" [inputFormatter]="displayFn" [search]="search" [editable]="false"></ngx-chips>
+  <ngx-chips [(ngModel)]="countries" [search]="search" [editable]="false" [inputFormatter]="displayFn" ></ngx-chips>
 </div>
 <div>
   <h1>Editable=true</h1>
   <ngx-chips [(ngModel)]="countryNames" [search]="searchNames" [editable]="true" [focusFirst]="false"></ngx-chips>
 </div>
 <div>
-  <h2>Input</h2>
-  <input type="text" class="form-control">
+  <h1>Readonly</h1>
+  <ngx-chips [(ngModel)]="countries" [search]="search" [editable]="false" [inputFormatter]="displayFn" [focusFirst]="true" [readOnly]="true"></ngx-chips>
+</div>
+
+<div>
+  <h1>Disabled</h1>
+  <ngx-chips [(ngModel)]="countries" [search]="search" [editable]="false" [inputFormatter]="displayFn" [focusFirst]="true" [disabled]="true"></ngx-chips>
 </div>

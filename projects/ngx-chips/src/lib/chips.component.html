@@ -1,15 +1,19 @@
-<ul class="form-control d-flex flex-wrap" style="width: 100%;">
+<ul class="form-control d-flex flex-wrap" [attr.tabindex]="readOnly?0:null" style="width: 100%;">
   <li *ngFor="let value of values; let idx = index">
     {{ inputFormatter != null ? inputFormatter(value) : value}}
-    <a href="#" (click)="removeItem(idx)">
+    <a [attr.href]="disabled||readOnly?null:'#'"
+       [class.disabled]="disabled"
+       (click)="removeItem(idx)">
       <fa-icon icon="times" title="Remove"></fa-icon>
     </a>
   </li>
-  <li class="flex-grow-1">
+  <li class="flex-grow-1" [style.display]="disabled||readOnly?'none':null">
     <input [ngbTypeahead]="searchFn" [editable]="editable" [(ngModel)]="newValue"
            [resultFormatter]="inputFormatter" [inputFormatter]="inputFormatter"
            (selectItem)="onSelectedItem($event)"
            (keydown)="onKeyDown($event)"
+           [readOnly]="readOnly"
+           [disabled]="disabled"
            [focusFirst]="focusFirst" type="text" #input>
   </li>
 </ul>

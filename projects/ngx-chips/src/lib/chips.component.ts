@@ -27,13 +27,20 @@ export class ChipsComponent implements ControlValueAccessor {
   @Input()
   focusFirst = true;
 
-  @ViewChild(NgbTypeahead, {static: true})
+  @Input()
+  readOnly = false;
+
+  @Input()
+  disabled = false;
+
+  @Input()
+  compareWith: (o1: any, o2: any) => boolean;
+
+  @ViewChild(NgbTypeahead, {static: false})
   typeahead: NgbTypeahead;
 
-  @ViewChild('input', {static: true})
+  @ViewChild('input', {static: false})
   inputField: ElementRef;
-
-  @ViewChild(NgbTypeahead, {static: true})
 
   values: any[];
 
@@ -50,6 +57,7 @@ export class ChipsComponent implements ControlValueAccessor {
    */
   private readonly subject$ = new Subject<string>();
 
+
   constructor() {
   }
 
@@ -62,7 +70,7 @@ export class ChipsComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.typeahead.setDisabledState(isDisabled);
+    this.disabled = isDisabled;
   }
 
   writeValue(obj: any): void {
@@ -75,13 +83,25 @@ export class ChipsComponent implements ControlValueAccessor {
 
   searchFn = (text$: Observable<string>) => merge(this.subject$, text$).pipe(this.search);
 
+
   /**
    * Adds a value to the model and notifies ngModel
    *
    * @param value The value to add
    */
   private addValue(value: any) {
+    if (this.disabled || this.readOnly) {
+      return;
+    }
     if (value != null && value !== '') {
+      // Checks if the value is already present
+      if (this.values != null) {
+        const compare = (this.compareWith != null) ? this.compareWith : (o1, o2) => (o1 === o2);
+        if (this.values.findIndex(v => compare(v, value)) >= 0) {
+          return;
+        }
+      }
+
       if (this.values == null) {
         this.values = new Array(value);
       } else {
@@ -141,7 +161,7 @@ export class ChipsComponent implements ControlValueAccessor {
    * @param index Index of the element to remove
    */
   removeItem(index: number) {
-    if (this.values == null || index < 0 || index >= this.values.length) {
+    if (this.disabled || this.readOnly || this.values == null || index < 0 || index >= this.values.length) {
       return;
     }
     this.values = [...this.values.slice(0, index), ...this.values.slice(index + 1)];
