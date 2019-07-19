@@ -3,7 +3,7 @@
     {{ inputFormatter != null ? inputFormatter(value) : value}}
     <a [attr.href]="disabled||readOnly?null:'#'"
        [class.disabled]="disabled"
-       (click)="removeItem(idx)">
+       (click)="onRemoveItem($event, idx)">
       <fa-icon icon="times" title="Remove"></fa-icon>
     </a>
   </li>

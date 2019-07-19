@@ -155,12 +155,17 @@ export class ChipsComponent implements ControlValueAccessor {
     }
   }
 
+  onRemoveItem($event: MouseEvent, index: number): void {
+    $event.preventDefault();
+    this.removeItem(index);
+  }
+
   /**
    * Remove the specified item
    *
    * @param index Index of the element to remove
    */
-  removeItem(index: number) {
+  removeItem(index: number): void {
     if (this.disabled || this.readOnly || this.values == null || index < 0 || index >= this.values.length) {
       return;
     }
